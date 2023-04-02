@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>UnderGram</title>
+
+
+        <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script
+            src="https://www.gstatic.com/firebasejs/7.14.6/firebase-analytics.js"></script>
+        <!--**** Remember to add the database script ***-->
+        <script
+            src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
+        <!--Your web app's Firebase configuration-->
+        <script src="config.js"></script>
+        <script src="index2.js"></script>
+        <link rel="stylesheet" href="style2.css">
+
+    </head>
+
+
+    <body onbeforeunload="closeWebSite()" onload="init()">
+
+        <header id="header">
+            <div class="header">
+                <p>UnderGram</p>
+                <p onclick="LogOut()" id="logOut">Log-Out</p>
+                <div id="GroupDiv" onclick="openUsersModal()"><img src="./img/community.png" alt=""></div>
+            </div>
+        </header>
+        <div id="container">
+            <div id="postPH">
+                <!-- this is PLACE HOLDER FOR THE INCOMING DATA -->
+
+                <!-- <div class="Card">
+                    <div class="CardContent">
+                        <p class="Typetitle">SECRET</p>
+                        <p class="Bodytitle" >contentcontentcontentcontentcontent <br>contentcontentcontentcontentcontent</p>
+
+                        <p class="titleFrom">Author: FFFFFFF</p>
+                        <p class="timetitle">time: 24/24/24 24:24</p>
+                    </div>
+                </div> -->
+
+
+            </div>
+            <div id="PostModal" class="basic">
+                <span onclick="ClosePostModalF()" id="ClosePostModal">X</span>
+                <div id="PostContent">
+                    <select name="Cat" id="CatIN">
+                        <option value="secret">Secret</option>
+                        <option value="Post">Post</option>
+                        <option value="Share">Share</option>
+                    </select>
+
+                    <textarea maxlength="150" name="msg" id="msgIN" cols="50" rows="5"></textarea>
+                    <div id="checkboxDiv">
+                        <input type="checkbox" name="anonimos" id="anonimosIN">
+                        <p>publish as anonymous</p>
+                    </div>
+                    <p class="title">Background Color :</p>
+                    <div id="colorPicker">
+
+                        <div onclick="SetBGcolor(this)" class="cube ddar">
+                        </div>
+                        <div onclick="SetBGcolor(this)" class="cube yyell">
+                        </div>
+                        <div onclick="SetBGcolor(this)" class="cube bblu">
+                        </div>
+                        <div onclick="SetBGcolor(this)" class="cube rred">
+                        </div>
+
+                        <div onclick="SetBGcolor(this)" class="cube basic">
+                        </div>
+                    </div>
+
+                    <button onclick="UploadPost()">Upload</button>
+                </div>
+            </div>
+
+            <div id="UsersContainer">
+                <div id="UsersWrap">
+                    <span onclick="CloseUserModal()" id="CloseUsersModal">X</span>
+                    <div id="UsersPH">
+                        <!-- RENDER IT HERE  -->
+                        <!-- <div class="UserCard online">
+                            <p class="UserTitle">NAME</p>
+                        </div>
+                        <div class="UserCard offline">
+                            <p class="UserTitle">NAME</p>
+                        </div>
+                        <div class="UserCard online">
+                            <p class="UserTitle">NAME</p>
+                        </div>
+                        <div class="UserCard offline">
+                            <p class="UserTitle">NAME</p>
+                        </div>
+                        <div class="UserCard online">
+                            <p class="UserTitle">NAME</p>
+                        </div>
+                        <div class="UserCard offline">
+                            <p class="UserTitle">NAME</p>
+                        </div> -->
+
+                    </div>
+                </div>
+            </div>
+            <div id="MegaWraper">
+                <div id="ChatContainer">
+                    <div id="ChatWrap">
+    
+                        <div id="ChatPH">
+                            <!-- <h1>There is no messages right now...</h1> -->
+    
+                            <!-- <div class="mesg he">
+                                <p class="contentMSG">blablablaldfdf efe fd  qdsks fdlklsfk d sodk sodk ? ! fkodks ! </p>
+                                <p class="fromMSG">Mazor</p>
+                                <p class="dateMSG">12.12.12 15:15</p>
+                            </div>
+                            <div class="mesg me">
+                                <p class="contentMSG">blablablaldfdf efe fd  qdsks fdlklsfk d sodk sodk ? ! fkodks ! </p>
+                                <p class="fromMSG">Mazor</p>
+                                <p class="dateMSG">12.12.12 15:15</p>
+                            </div>
+                            <div class="mesg he">
+                                <p class="contentMSG">blablablaldfdf efe fd  qdsks fdlklsfk d sodk sodk ? ! fkodks ! </p>
+                                <p class="fromMSG">Mazor</p>
+                                <p class="dateMSG">12.12.12 15:15</p>
+                            </div>
+                            <div class="mesg me">
+                                <p class="contentMSG">blablablaldfdf efe fd  qdsks fdlklsfk d sodk sodk ? ! fkodks ! </p>
+                                <p class="fromMSG">Mazor</p>
+                                <p class="dateMSG">12.12.12 15:15</p>
+                            </div>
+                            <div class="mesg he">
+                                <p class="contentMSG">blablablaldfdf efe fd  qdsks fdlklsfk d sodk sodk ? ! fkodks ! </p>
+                                <p class="fromMSG">Mazor</p>
+                                <p class="dateMSG">12.12.12 15:15</p>
+                            </div>
+                            <div class="mesg me">
+                                <p class="contentMSG">blablablaldfdf efe fd  qdsks fdlklsfk d sodk sodk ? ! fkodks ! </p>
+                                <p class="fromMSG">Mazor</p>
+                                <p class="dateMSG">12.12.12 15:15</p>
+                            </div> -->
+                        </div>
+    
+                        <div id="InputMsgContainer">
+                            <div id="inputWrap">
+                                <textarea maxlength="225" name="msgIN" id="msgINn" cols="100" rows="5"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div id="btnplus" onclick="openModal()" class="wrapBTN">
+                <p id="+BTN">+</p>
+            </div>
+        </div>
+
+
+
+        <div id="SignIn">
+            <div class="Wrap">
+
+                <p>insert nickname</p>
+                <input type="text" name="nickname" id="nameIN">
+                <p>insert password</p>
+                <input type="password" name="pass" id="passIN">
+                <div class="inline">
+                    <p id="memolable">Remember me ?</p>
+                    <input type="checkbox" name="remember" id="memoIN">
+                </div>
+
+                <button onclick="SignIn()">Enter</button>
+                <button onclick="SignUp()">Register</button>
+
+            </div>
+        </div>
+
+
+        <div id="PushNot">
+            <div id="PushWraper">
+                <img src="./img/email.png" alt="">
+                <p id="Push-Content">You Got new Message From BlaBla !</p>
+            </div>
+        </div>
+    </body>
+</html>
