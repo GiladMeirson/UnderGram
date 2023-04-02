@@ -267,8 +267,9 @@ function listenToNewMessages() {
       if (initt == false) {
         CheckForNotification(Piecse);
       }
-      RenderToChatPH(allmsg);
       allmsg.push(Piecse);
+      RenderToChatPH(allmsg);
+     
     }
   });
 }
